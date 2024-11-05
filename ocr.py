@@ -52,8 +52,9 @@ def get_ocr():
         except:
             print_err("Błedna wrtość!!!")
 
+    print("Czekaj, trwa oczyt pliku...\n")
     ocr_data = pytesseract.image_to_string(
-        Image.open('image.png'), lang='pol')
+        Image.open(img), lang='pol')
     find_word = input('Wpisz słowo które chcesz wyszukać: ').lower()
     find_word_idx = [idx for idx in range(
         len(ocr_data)) if ocr_data.lower().startswith(find_word, idx)]
