@@ -1,11 +1,12 @@
 import os
 from pypdf import PdfReader
 from PIL import Image
+from ocr import get_ocr
 
 
-def convert_pdfs_to_images(pdfs):
-    print("Trwa pobieranie obrazów z pilku...")
-    reader = PdfReader(pdfs[0])
+def convert_pdfs_to_images(pdf):
+    print("\nTrwa pobieranie obrazu z pliku PDF...")
+    reader = PdfReader(pdf)
 
     page = reader.pages[0]
     image_paths = []
@@ -19,13 +20,12 @@ def convert_pdfs_to_images(pdfs):
         image_ext = f_name.split('.')[1]
 
     image_paths.sort(reverse=True)
-    file_name = f"{pdfs[0].split('.')[0]}.{image_ext}"
-    print(file_name)
-    images_merege(image_paths, file_name)
+    file_name = f"{pdf.split('.')[0]}.{image_ext}"
+    images_merge(image_paths, file_name)
 
 
-def images_merege(image_paths, file_name):
-    print("Trwa konwersja pilku PDF do obrazu...")
+def images_merge(image_paths, file_name):
+    print("Trwa konwersja pliku PDF do obrazu...")
     images = [Image.open(img_path) for img_path in image_paths]
 
     max_width = max(img.width for img in images)
@@ -42,4 +42,5 @@ def images_merege(image_paths, file_name):
 
     for f in image_paths:
         os.remove(f)
-    new_image.show()
+    # new_image.show()
+    get_ocr(file_name)

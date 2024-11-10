@@ -1,4 +1,4 @@
-from ocr import run_ocr
+from select_file_to_ocr import run_ocr
 
 
 def main():
