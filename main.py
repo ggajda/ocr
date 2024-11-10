@@ -1,9 +1,8 @@
-from ocr import get_ocr, get_image
+from ocr import run_ocr
 
 
 def main():
-    print("OCR ver. 1.0.0\n")
-    get_ocr()
+    run_ocr()
 
 
 if __name__ == "__main__":
