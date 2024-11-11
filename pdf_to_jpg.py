@@ -12,9 +12,9 @@ def convert_pdfs_to_images(pdf):
     # image_ext = None
 
     # page = reader.pages[0]
-    for page in reader.pages:
+    for num, page in enumerate(reader.pages):
         for count, image_file_object in enumerate(page.images):
-            f_name = f'{count}{image_file_object.name}'
+            f_name = f'Page_{num+1} {count+1}{image_file_object.name}'
             image_paths.append(f_name)
             with open(f_name, "wb") as f:
                 f.write(image_file_object.data)
@@ -31,23 +31,22 @@ def convert_pdfs_to_images(pdf):
     #              '0Im5.jpg', '0Im6.jpg', '0Im7.jpg', '0Im8.jpg', '0Im9.jpg'], 'umowa_zawiercie.jpg')
 
 
-def images_merge(image_paths, file_name):
-    print("Trwa konwersja pliku PDF do obrazu...")
-    images = [Image.open(img_path) for img_path in image_paths]
+# def images_merge(image_paths, file_name):
+#     print("Trwa konwersja pliku PDF do obrazu...")
+#     images = [Image.open(img_path) for img_path in image_paths]
 
-    max_width = max(img.width for img in images)
-    total_height = sum(img.height for img in images)
+#     max_width = max(img.width for img in images)
+#     total_height = sum(img.height for img in images)
 
-    new_image = Image.new('RGB', (max_width, total_height))
+#     new_image = Image.new('RGB', (max_width, total_height))
 
-    y_offset = 0
-    for img in images:
-        new_image.paste(img, (0, y_offset))
-        y_offset += img.height
+#     y_offset = 0
+#     for img in images:
+#         new_image.paste(img, (0, y_offset))
+#         y_offset += img.height
 
-    new_image.save(file_name)
+#     new_image.save(file_name)
 
-    # for f in image_paths:
-    #     os.remove(f)
-    new_image.show()
-    # get_ocr(file_name)
+#     for f in image_paths:
+#         os.remove(f)
+#     new_image.show()
