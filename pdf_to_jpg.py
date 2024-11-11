@@ -8,20 +8,27 @@ def convert_pdfs_to_images(pdf):
     print("\nTrwa pobieranie obrazu z pliku PDF...")
     reader = PdfReader(pdf)
 
-    page = reader.pages[0]
     image_paths = []
-    image_ext = None
+    # image_ext = None
 
-    for count, image_file_object in enumerate(page.images):
-        f_name = f'{count}{image_file_object.name}'
-        image_paths.append(f_name)
-        with open(f_name, "wb") as f:
-            f.write(image_file_object.data)
-        image_ext = f_name.split('.')[1]
+    # page = reader.pages[0]
+    for page in reader.pages:
+        for count, image_file_object in enumerate(page.images):
+            f_name = f'{count}{image_file_object.name}'
+            image_paths.append(f_name)
+            with open(f_name, "wb") as f:
+                f.write(image_file_object.data)
+            img = Image.open(f_name)
+            rotated_img = img.rotate(90, expand=True)
+            rotated_img.save(f_name)
+            get_ocr(f_name)
+            # image_ext = f_name.split('.')[1]
 
-    image_paths.sort(reverse=True)
-    file_name = f"{pdf.split('.')[0]}.{image_ext}"
-    images_merge(image_paths, file_name)
+    # # image_paths.sort(reverse=True)
+    # file_name = f"{pdf.split('.')[0]}.{image_ext}"
+    # images_merge(image_paths, file_name)
+    # images_merge(['0Im1.jpg', '0Im2.jpg', '0Im3.jpg', '0Im4.jpg',
+    #              '0Im5.jpg', '0Im6.jpg', '0Im7.jpg', '0Im8.jpg', '0Im9.jpg'], 'umowa_zawiercie.jpg')
 
 
 def images_merge(image_paths, file_name):
@@ -40,7 +47,7 @@ def images_merge(image_paths, file_name):
 
     new_image.save(file_name)
 
-    for f in image_paths:
-        os.remove(f)
-    # new_image.show()
-    get_ocr(file_name)
+    # for f in image_paths:
+    #     os.remove(f)
+    new_image.show()
+    # get_ocr(file_name)

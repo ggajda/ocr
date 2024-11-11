@@ -24,10 +24,11 @@ def get_images():
 def set_image(files, cnt):
     print(files)
     file_number = input(f'Wybierz numer pliku (od 1 do {
-        cnt}): lub "q" aby wyjść z programu: ')
+        cnt}) lub "q" aby wyjść z programu: ')
     if file_number == "q":
         os._exit(0)
 
+    file = None
     try:
         file = files[int(file_number)-1]
     except:

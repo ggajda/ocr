@@ -13,8 +13,9 @@ def get_ocr(file):
     try:
         ocr_data = pytesseract.image_to_string(
             Image.open(file), lang='pol')
+
         with open("ocr.txt", "w") as f:
             f.write(ocr_data)
-            find_in_ocr()
+        find_in_ocr(ocr_data, file)
     except AttributeError as err:
         print_err(str(err))
