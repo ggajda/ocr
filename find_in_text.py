@@ -3,9 +3,16 @@ from colorama import Fore, Back
 from colored_messages import print_warning
 
 
-def find_in_ocr(ocr_data, file):
+def find_in_ocr():
+    ocr_data = None
+    with open("ocr.txt", "r") as f:
+        ocr_data = f.read()
+
     find_word = input(
-        'Wpisz słowo które chcesz wyszukać lub "q" aby wyjść z programu: ').lower()
+        f'Wpisz słowo które chcesz wyszukać lub "{Fore.YELLOW}q{Fore.WHITE}" aby wyjść z programu: ').lower()
+    if find_word == "q":
+        os._exit(0)
+
     find_word_idx = [idx for idx in range(
         len(ocr_data)) if ocr_data.lower().startswith(find_word, idx)]
 
@@ -17,20 +24,14 @@ def find_in_ocr(ocr_data, file):
         for index, data in enumerate(ocr_data):
             for fwi in find_word_idx:
                 if (index == fwi):
-                    out_data += Back.WHITE + Fore.BLACK
+                    out_data += Back.YELLOW + Fore.BLACK
                 if (index == fwi + len(find_word)):
                     out_data += Back.BLACK + Fore.WHITE
             out_data += data
-        out_data += f'{Fore.GREEN}\nZnaleziono w {file} {
-            idx_len}x frazę {Back.WHITE}{Fore.BLACK}{find_word}{Back.BLACK}{Fore.WHITE}'
+        out_data += f'{Fore.GREEN}\nZnaleziono {
+            idx_len}x frazę {Back.YELLOW}{Fore.BLACK}{find_word}{Back.BLACK}{Fore.WHITE}'
     else:
-        print_warning(f'Nie znaleziono frazy "{
-                      find_word}". Wpisz "r" aby powtórzyć wyszukiwanie')
+        print_warning(f'Nie znaleziono frazy "{find_word}"')
 
     print(out_data)
-    if find_word == "q":
-        os._exit(0)
-    elif find_word == "r":
-        find_in_ocr(ocr_data, file)
-    else:
-        input()
+    find_in_ocr()

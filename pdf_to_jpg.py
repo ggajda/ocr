@@ -22,6 +22,7 @@ def convert_pdfs_to_images(pdf):
             rotated_img = img.rotate(90, expand=True)
             rotated_img.save(f_name)
             get_ocr(f_name)
+            os.remove(f_name)
             # image_ext = f_name.split('.')[1]
 
     # # image_paths.sort(reverse=True)

@@ -3,10 +3,14 @@ import imghdr
 from pdf_to_jpg import convert_pdfs_to_images
 from colored_messages import print_warning, print_err
 from ocr import get_ocr
+from colorama import Fore
+from find_in_text import find_in_ocr
 
 
 def run_ocr():
-    print("OCR ver. 1.1.0\n")
+    print("OCR ver. 1.1.1\n")
+    with open("ocr.txt", "w") as f:
+        pass
     get_images()
 
 
@@ -22,9 +26,10 @@ def get_images():
 
 
 def set_image(files, cnt):
-    print(files)
-    file_number = input(f'Wybierz numer pliku (od 1 do {
-        cnt}) lub "q" aby wyjść z programu: ')
+    for i, f in enumerate(files):
+        print(f'{i+1} - {f}')
+    file_number = input(f'\nWybierz numer pliku (od 1 do {
+        cnt}) lub "{Fore.YELLOW}q{Fore.WHITE}" aby wyjść z programu: ')
     if file_number == "q":
         os._exit(0)
 
@@ -39,3 +44,5 @@ def set_image(files, cnt):
         convert_pdfs_to_images(file)
     else:
         get_ocr(file)
+
+    find_in_ocr()
