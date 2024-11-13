@@ -1,6 +1,13 @@
-import os
+from os import name, system, _exit
 from colorama import Fore, Back
 from colored_messages import print_warning
+
+
+def clear_screen():
+    if name == "nt":
+        system('cls')
+    else:
+        system('clear')
 
 
 def find_in_ocr():
@@ -10,8 +17,10 @@ def find_in_ocr():
 
     find_word = input(
         f'Wpisz słowo które chcesz wyszukać lub "{Fore.YELLOW}q{Fore.WHITE}" aby wyjść z programu: ').lower()
+    clear_screen()
+
     if find_word == "q":
-        os._exit(0)
+        _exit(0)
 
     find_word_idx = [idx for idx in range(
         len(ocr_data)) if ocr_data.lower().startswith(find_word, idx)]
