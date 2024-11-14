@@ -8,7 +8,7 @@ from find_in_text import find_in_ocr
 
 
 def run_ocr():
-    print("OCR ver. 1.2.1\n")
+    print("OCR ver. 1.2.2\n")
     with open("ocr.txt", "w") as f:
         pass
     get_images()

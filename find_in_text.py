@@ -31,9 +31,9 @@ def find_in_ocr():
 
     if idx_len > 0:
         for index, data in enumerate(ocr_data):
-            for fwi in find_word_idx:
+            for f_index, fwi in enumerate(find_word_idx):
                 if (index == fwi):
-                    out_data += Back.YELLOW + Fore.BLACK
+                    out_data += f'{Back.YELLOW}{Fore.BLACK}({f_index+1})'
                 if (index == fwi + len(find_word)):
                     out_data += Back.BLACK + Fore.WHITE
             out_data += data
