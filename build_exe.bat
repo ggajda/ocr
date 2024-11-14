@@ -1,2 +1,2 @@
 @echo off
-pyinstaller.exe -F main.py
+pyinstaller.exe -F main.py -n ocr
